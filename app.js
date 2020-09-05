@@ -17,4 +17,4 @@ app.set('view engine', 'handlebars');
 
 // routes
 app.use('/', require('./routes/index.js'));
-app.use('/user', require('./routes/user'));
+app.use('/game', require('./routes/game'));
