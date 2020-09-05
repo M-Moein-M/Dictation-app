@@ -1,7 +1,16 @@
 * {
   font-family: 'Source Serif Pro', serif;
+  color: #004d40;
 }
 
 body {
   background-color: #b2dfdb;
+}
+
+.hide {
+  display: none;
+}
+
+.page-title {
+  text-align: center;
 }
