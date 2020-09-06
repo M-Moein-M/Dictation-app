@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 
 const { usersDatabase, wordsDatabase } = require('../app.js');
 
@@ -8,9 +9,36 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  console.log('signup request');
-  console.log(req.body);
-  res.render('signup'); // this must be render('signin')
+  const renderObj = { signupErrors: [] };
+
+  if (req.body.password.length < 6) {
+    renderObj.signupErrors.push('Password must be at least 6 characters!');
+    renderObj.email = req.body.email; // we dont want the user to type the eamil again
+    renderObj.username = req.body.username;
+  }
+
+  usersDatabase.findOne({ email: req.body.email }, (err, docs) => {
+    if (err) {
+      console.log('Error in signup post request');
+      console.log(err);
+      res.redirect('signup');
+    }
+    if (docs != null) {
+      // incase there's a user with same email
+      renderObj.signupErrors.push('This email is already taken!');
+      renderObj.email = null;
+    }
+    if (renderObj.signupErrors.length != 0) {
+      res.render('signup', renderObj);
+    } else {
+      // insert new user to database
+      const { email, username, password } = req.body;
+      const user = { email, username, password: bcrypt.hashSync(password, 10) };
+
+      usersDatabase.insert(user);
+      res.send('<h1>Signin page<h1>');
+    }
+  });
 });
 
 module.exports = router;
