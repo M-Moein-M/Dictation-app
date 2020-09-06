@@ -7,15 +7,14 @@ const { usersDatabase, wordsDatabase } = require('../app.js');
 
 router.get('/', async (req, res) => {
   try {
-    const word = 'producer';
+    // fetch request for word pronunciation
+    const word = 'apple';
     const apiURL = `https://api.wordnik.com/v4/word.json/${word}/audio?useCanonical=false&limit=1&api_key=${process.env.APP_KEY}`;
     const apiRes = await fetch(apiURL);
     const data = await apiRes.json();
     const audioURL = data[0].fileUrl;
 
-    console.log(audioURL);
-
-    res.render('game');
+    res.render('game', { jsFile: 'game.js', audioSrc: audioURL });
   } catch (error) {
     throw error;
   }

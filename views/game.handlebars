@@ -1,3 +1,6 @@
+<div id="level">
+  <h1></h1>
+</div>
 <div class="container">
   <h1 class="page-title mt-5">D GAME!</h1>
   <div class="row justify-content-center">
@@ -8,12 +11,19 @@
           <label for="word">What was the word?</label>
           <input type="text" class="form-control" id="word" name="word" spellcheck="false" autocomplete="off"
             aria-describedby="emailHelp">
-          <small id="note" class="form-text text-muted">Use capital letter in the beggining of proper nouns(i.e.
-            "Canada" ) </small>
+          <small id="note" class="form-text text-muted">Use capital letter in the beginning of proper nouns(i.e.
+            "Canada") </small>
         </div>
 
         <button type="submit" class="btn btn-primary hide">Submit</button>
       </form>
     </div>
   </div>
+  <div class="row justify-content-center">
+    <button id="play-btn"></button>
+  </div>
 </div>
+
+<audio id="player" type="audio/mpeg">
+  <source src={{audioSrc}} type="audio/mpeg" />
+</audio>
