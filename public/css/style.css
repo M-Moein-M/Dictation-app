@@ -32,3 +32,10 @@ body {
   border: none;
   background-color: inherit;
 }
+
+#level {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
