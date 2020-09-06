@@ -12,7 +12,7 @@ const { usersDatabase, wordsDatabase } = require('../app.js');
 // );
 
 router.get('/', async (req, res) => {
-  wordsDatabase.findOne({ wordTag: userLevel.toString() }, async (err, doc) => {
+  wordsDatabase.findOne({ wordTag: userLevel }, async (err, doc) => {
     if (err) console.log(err);
     const word = (currentWord = doc.word);
     try {
