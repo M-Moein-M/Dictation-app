@@ -39,3 +39,11 @@ body {
   top: 10px;
   left: 10px;
 }
+
+/* signup page  */
+#signup-form {
+  width: 300px;
+  border: 2px #41c300 solid;
+  border-radius: 5px;
+  padding: 20px;
+}

@@ -40,3 +40,4 @@ app.set('view engine', 'handlebars');
 // routes
 app.use('/', require('./routes/index.js'));
 app.use('/game', require('./routes/game'));
+app.use('/signup', require('./routes/signup'));

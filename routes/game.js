@@ -7,9 +7,6 @@ const fetch = require('node-fetch');
 require('dotenv').config();
 
 const { usersDatabase, wordsDatabase } = require('../app.js');
-// wordsDatabase.findOne({ wordTag: userLevel.toString() }, (err, docs) =>
-//   console.log(docs)
-// );
 
 router.get('/', async (req, res) => {
   wordsDatabase.findOne({ wordTag: userLevel }, async (err, doc) => {
