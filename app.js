@@ -20,7 +20,36 @@ const wordsDatabase = new Datastore({
 });
 console.log('Databasae loaded');
 
-module.exports = { usersDatabase, wordsDatabase };
+// express session
+const flash = require('express-flash');
+const session = require('express-session');
+const NedbStore = require('connect-nedb-session')(session);
+app.use(flash());
+app.use(
+  session({
+    secret: process.env.SECRET || 'skyisgettingdarker',
+    resave: false,
+    saveUninitialized: true,
+    store: new NedbStore({
+      filename: path.join(__dirname, 'database', 'session-database'),
+    }),
+    cookie: {
+      maxAge: 1000 * 30, // 30 sec before the session expires
+    },
+  })
+);
+
+// passport
+const passport = require('passport');
+
+module.exports = { usersDatabase, wordsDatabase, passport };
+
+const _ = require(path.join(__dirname, 'passport-config.js'))(
+  passport,
+  usersDatabase
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // temp user
 app.use(tempUser);

@@ -5,14 +5,21 @@
   <div class="row justify-content-center mt-5">
 
     <form action="/signin" method="POST" id="signin-form">
-      {{#each signinErrors}}
+      {{#if messages.error}}
       <div class="alert alert-danger" role="alert">
-        {{this}}
+        {{messages.error}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      {{/each}}
+      </div> {{/if}}
+      {{#if messages.signupSuccess}}
+      <div class="alert alert-success" role="alert">
+        {{messages.signupSuccess}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> {{/if}}
+
 
       <div class="form-group">
         <label for="Email">Email address</label>
@@ -27,5 +34,8 @@
 
       <button type="submit" class="btn btn-success">Submit</button>
     </form>
+  </div>
+  <div class="row justify-content-center mt-2">
+    <p>If you don't have an account <a href="/signup">register here</a></p>
   </div>
 </div>

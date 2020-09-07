@@ -48,3 +48,8 @@ body {
   border-radius: 5px;
   padding: 20px;
 }
+
+a {
+  color: #05b3a1;
+  text-decoration: underline;
+}

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const flash = require('express-flash');
 
 const { usersDatabase, wordsDatabase } = require('../app.js');
 
@@ -35,9 +36,10 @@ router.post('/', (req, res) => {
       // insert new user to database
       const { email, username, password } = req.body;
       const user = { email, username, password: bcrypt.hashSync(password, 10) };
-
       usersDatabase.insert(user);
-      res.send('<h1>Signin page<h1>');
+
+      req.flash('signupSuccess', 'You may now sign-in with your account');
+      res.render('signin');
     }
   });
 });
