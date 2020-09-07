@@ -1,6 +1,7 @@
 const express = require('express');
 const exhbs = require('express-handlebars');
 const path = require('path');
+const dotenv = require('dotenv').config();
 
 const app = express();
 app.use(express.static('public'));
@@ -29,12 +30,12 @@ app.use(
   session({
     secret: process.env.SECRET || 'skyisgettingdarker',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: new NedbStore({
       filename: path.join(__dirname, 'database', 'session-database'),
     }),
     cookie: {
-      maxAge: 1000 * 30, // 30 sec before the session expires
+      maxAge: 1000 * 60, // 1 minute before the session expires
     },
   })
 );
@@ -51,13 +52,6 @@ const _ = require(path.join(__dirname, 'passport-config.js'))(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// temp user
-app.use(tempUser);
-function tempUser(req, res, next) {
-  req.user = 1;
-  next();
-}
-
 // html form middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -71,3 +65,8 @@ app.use('/', require(path.join(__dirname, 'routes', 'index.js')));
 app.use('/game', require(path.join(__dirname, 'routes', 'game')));
 app.use('/signup', require(path.join(__dirname, 'routes', 'signup')));
 app.use('/signin', require(path.join(__dirname, 'routes', 'signin')));
+
+app.post('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});

@@ -6,7 +6,7 @@ module.exports = function initialize(passport, usersDatabase) {
   passport.use(
     new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
       usersDatabase.findOne({ email: email }, (err, user) => {
-        if (err) done(err);
+        if (err) return done(err);
 
         if (!user)
           return done(null, false, { message: 'This email in not registered' });

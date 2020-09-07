@@ -49,7 +49,11 @@ body {
   padding: 20px;
 }
 
-a {
+p > a {
   color: #05b3a1;
   text-decoration: underline;
+}
+#about-game-paragraph {
+  text-align: justify;
+  width: 400px;
 }

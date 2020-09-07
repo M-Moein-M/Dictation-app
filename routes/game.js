@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const { usersDatabase, wordsDatabase } = require('../app.js');
 
-router.get('/', async (req, res) => {
+router.get('/', isAuthenticated, async (req, res) => {
   wordsDatabase.findOne({ wordTag: userLevel }, async (err, doc) => {
     if (err) console.log(err);
     const word = (currentWord = doc.word);
@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
   });
 });
 
-router.post('/', (req, res) => {
+router.post('/', isAuthenticated, (req, res) => {
   console.log(req.body.word);
   if (req.body.word == currentWord) userLevel++;
   else restartUserLevel();
@@ -41,6 +41,12 @@ router.post('/', (req, res) => {
 
 function restartUserLevel() {
   userLevel = 1;
+}
+
+// isAuthenticated middleware
+function isAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) next();
+  else res.redirect('/signin');
 }
 
 module.exports = router;

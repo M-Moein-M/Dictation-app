@@ -5,11 +5,11 @@ const flash = require('express-flash');
 
 const { usersDatabase, wordsDatabase } = require('../app.js');
 
-router.get('/', (req, res) => {
+router.get('/', isNotAuthenticated, (req, res) => {
   res.render('signup');
 });
 
-router.post('/', (req, res) => {
+router.post('/', isNotAuthenticated, (req, res) => {
   const renderObj = { signupErrors: [] };
 
   if (req.body.password.length < 6) {
@@ -43,5 +43,11 @@ router.post('/', (req, res) => {
     }
   });
 });
+
+// make sure user is not authenticated already
+function isNotAuthenticated(req, res, next) {
+  if (!req.isAuthenticated()) next();
+  else res.redirect('/');
+}
 
 module.exports = router;
