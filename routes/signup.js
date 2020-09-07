@@ -27,6 +27,7 @@ router.post('/', (req, res) => {
       // incase there's a user with same email
       renderObj.signupErrors.push('This email is already taken!');
       renderObj.email = null;
+      renderObj.username = req.body.username;
     }
     if (renderObj.signupErrors.length != 0) {
       res.render('signup', renderObj);

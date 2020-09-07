@@ -38,6 +38,7 @@ app.engine('handlebars', exhbs());
 app.set('view engine', 'handlebars');
 
 // routes
-app.use('/', require('./routes/index.js'));
-app.use('/game', require('./routes/game'));
-app.use('/signup', require('./routes/signup'));
+app.use('/', require(path.join(__dirname, 'routes', 'index.js')));
+app.use('/game', require(path.join(__dirname, 'routes', 'game')));
+app.use('/signup', require(path.join(__dirname, 'routes', 'signup')));
+app.use('/signin', require(path.join(__dirname, 'routes', 'signin')));

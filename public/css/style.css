@@ -41,7 +41,8 @@ body {
 }
 
 /* signup page  */
-#signup-form {
+#signup-form,
+#signin-form {
   width: 300px;
   border: 2px #41c300 solid;
   border-radius: 5px;
