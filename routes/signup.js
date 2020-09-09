@@ -35,7 +35,14 @@ router.post('/', isNotAuthenticated, (req, res) => {
     } else {
       // insert new user to database
       const { email, username, password } = req.body;
-      const user = { email, username, password: bcrypt.hashSync(password, 10) };
+
+      // initialize new user
+      const user = {
+        email,
+        username,
+        password: bcrypt.hashSync(password, 10),
+        userLevel: 1,
+      };
       usersDatabase.insert(user);
 
       req.flash('signupSuccess', 'You may now sign-in with your account');

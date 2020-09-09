@@ -35,7 +35,7 @@ app.use(
       filename: path.join(__dirname, 'database', 'session-database'),
     }),
     cookie: {
-      maxAge: 1000 * 60, // 1 minute before the session expires
+      maxAge: 1000 * 60 * 60 * 200, // 200 hours for session duration
     },
   })
 );

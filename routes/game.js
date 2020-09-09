@@ -1,6 +1,3 @@
-let userLevel = 1; // initial user streak
-let currentWord;
-
 const express = require('express');
 const router = express.Router();
 const fetch = require('node-fetch');
@@ -9,7 +6,7 @@ require('dotenv').config();
 const { usersDatabase, wordsDatabase } = require('../app.js');
 
 router.get('/', isAuthenticated, async (req, res) => {
-  wordsDatabase.findOne({ wordTag: userLevel }, async (err, doc) => {
+  wordsDatabase.findOne({ wordTag: req.user.userLevel }, async (err, doc) => {
     if (err) console.log(err);
     const word = (currentWord = doc.word);
     try {
@@ -22,7 +19,7 @@ router.get('/', isAuthenticated, async (req, res) => {
       res.render('game', {
         jsFile: 'game.js',
         audioSrc: audioURL,
-        currentLevel: userLevel,
+        currentLevel: req.user.userLevel,
       });
     } catch (error) {
       console.log('Error on catch phrase get /game route');
@@ -33,10 +30,45 @@ router.get('/', isAuthenticated, async (req, res) => {
 });
 
 router.post('/', isAuthenticated, (req, res) => {
-  console.log(req.body.word);
-  if (req.body.word == currentWord) userLevel++;
-  else restartUserLevel();
-  res.redirect('/game');
+  wordsDatabase.findOne(
+    { wordTag: req.user.userLevel },
+    (err, databaseWord) => {
+      usersDatabase.findOne({ _id: req.user._id }, (err, user) => {
+        if (err) {
+          console.log('Error in /game post');
+          console.log(err);
+        }
+        // if user inputed the word correctly
+        if (req.body.word == databaseWord.word) {
+          usersDatabase.update(
+            { _id: user._id },
+            { $set: { userLevel: user.userLevel + 1 } },
+            {},
+            (err, numReplaced) => {
+              if (err) {
+                console.log('Error in /game post');
+                console.log(err);
+              }
+            }
+          );
+        } else {
+          // wrong dictation
+          usersDatabase.update(
+            { _id: user._id },
+            { $set: { userLevel: 1 } },
+            (err, numReplaced) => {
+              if (err) {
+                console.log('Error in /game post');
+                console.log(err);
+              }
+            }
+          );
+        }
+      });
+
+      res.redirect('/game');
+    }
+  );
 });
 
 function restartUserLevel() {
