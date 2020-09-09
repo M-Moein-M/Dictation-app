@@ -4,7 +4,7 @@
   </div>
   <div class="row justify-content-center mt-5">
 
-    <form action="/signin" method="POST" id="signin-form">
+    <form action="/signin" method="POST" id="signin-form" class="stop-shake-on-hover">
       {{#if messages.error}}
       <div class="alert alert-danger" role="alert">
         {{messages.error}}
@@ -12,9 +12,9 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div> {{/if}}
-      {{#if messages.signupSuccess}}
+      {{#if messages.appMsg}}
       <div class="alert alert-success" role="alert">
-        {{messages.signupSuccess}}
+        {{messages.appMsg}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -38,4 +38,9 @@
   <div class="row justify-content-center mt-2">
     <p>If you don't have an account <a href="/signup">register here</a></p>
   </div>
+
+  <div class="row justify-content-center">
+    <a class="btn btn-primary m-1" href="/" role="button">Home</a>
+  </div>
+
 </div>

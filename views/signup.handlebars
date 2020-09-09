@@ -4,7 +4,7 @@
   </div>
   <div class="row justify-content-center mt-5">
 
-    <form action="/signup" method="POST" id="signup-form">
+    <form action="/signup" method="POST" id="signup-form" class="stop-shake-on-hover">
       {{#each signupErrors}}
       <div class="alert alert-danger" role="alert">
         {{this}}
@@ -37,4 +37,9 @@
   <div class="row justify-content-center mt-2">
     <p>If you have an account <a href="/signin">log-in here</a></p>
   </div>
+
+  <div class="row justify-content-center">
+    <a class="btn btn-primary m-1" href="/" role="button">Home</a>
+  </div>
+
 </div>

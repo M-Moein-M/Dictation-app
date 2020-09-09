@@ -45,7 +45,7 @@ router.post('/', isNotAuthenticated, (req, res) => {
       };
       usersDatabase.insert(user);
 
-      req.flash('signupSuccess', 'You may now sign-in with your account');
+      req.flash('appMsg', 'You may now sign-in with your account');
       res.render('signin');
     }
   });

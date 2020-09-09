@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const fetch = require('node-fetch');
+const flash = require('express-flash');
 require('dotenv').config();
 
 const { usersDatabase, wordsDatabase } = require('../app.js');
@@ -71,14 +72,13 @@ router.post('/', isAuthenticated, (req, res) => {
   );
 });
 
-function restartUserLevel() {
-  userLevel = 1;
-}
-
 // isAuthenticated middleware
 function isAuthenticated(req, res, next) {
   if (req.isAuthenticated()) next();
-  else res.redirect('/signin');
+  else {
+    req.flash('appMsg', 'Oops! You need to log-in to play the game');
+    res.redirect('/signin');
+  }
 }
 
 module.exports = router;
