@@ -14,6 +14,10 @@
 </head>
 
 <body>
+  <nav>
+    {{>header}}
+  </nav>
+
   {{{body}}}
   {{#if jsFile}}
   <script src="js/{{jsFile}}"></script>

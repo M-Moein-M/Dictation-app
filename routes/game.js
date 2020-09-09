@@ -21,6 +21,7 @@ router.get('/', isAuthenticated, async (req, res) => {
         jsFile: 'game.js',
         audioSrc: audioURL,
         currentLevel: req.user.userLevel,
+        isUserLogged: req.isAuthenticated(),
       });
     } catch (error) {
       console.log('Error on catch phrase get /game route');

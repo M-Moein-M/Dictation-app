@@ -4,7 +4,7 @@ const router = express.Router();
 const { usersDatabase, wordsDatabase, passport } = require('../app.js');
 
 router.get('/', isNotAuthenticated, (req, res) => {
-  res.render('signin');
+  res.render('signin', { isUserLogged: req.isAuthenticated() });
 });
 
 router.post(

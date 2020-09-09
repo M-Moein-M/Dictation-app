@@ -6,7 +6,7 @@ const flash = require('express-flash');
 const { usersDatabase, wordsDatabase } = require('../app.js');
 
 router.get('/', isNotAuthenticated, (req, res) => {
-  res.render('signup');
+  res.render('signup', { isUserLogged: req.isAuthenticated() });
 });
 
 router.post('/', isNotAuthenticated, (req, res) => {
@@ -29,6 +29,7 @@ router.post('/', isNotAuthenticated, (req, res) => {
       renderObj.signupErrors.push('This email is already taken!');
       renderObj.email = null;
       renderObj.username = req.body.username;
+      renderObj.isUserLogged = req.isAuthenticated();
     }
     if (renderObj.signupErrors.length != 0) {
       res.render('signup', renderObj);
@@ -46,7 +47,7 @@ router.post('/', isNotAuthenticated, (req, res) => {
       usersDatabase.insert(user);
 
       req.flash('appMsg', 'You may now sign-in with your account');
-      res.render('signin');
+      res.render('signin', { isUserLogged: req.isAuthenticated() });
     }
   });
 });

@@ -104,3 +104,34 @@ p > a {
 .stop-shake-on-hover:hover {
   animation: none;
 }
+
+#header {
+  height: 44px;
+
+  margin: 0;
+  padding: 0;
+
+  background-color: #00796b;
+  list-style: none;
+}
+
+#header > a {
+  text-decoration: none;
+}
+#header li {
+  color: #b2dfdb;
+  display: inline-block;
+  padding: 10px 20px;
+
+  transition-duration: 0.1s;
+}
+#header li:hover {
+  background-color: #19c298;
+}
+
+.float-left {
+  float: left;
+}
+.float-rigt {
+  float: right;
+}

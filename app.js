@@ -66,7 +66,7 @@ app.use('/game', require(path.join(__dirname, 'routes', 'game')));
 app.use('/signup', require(path.join(__dirname, 'routes', 'signup')));
 app.use('/signin', require(path.join(__dirname, 'routes', 'signin')));
 
-app.post('/logout', (req, res) => {
+app.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
 });

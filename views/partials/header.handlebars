@@ -1,0 +1,22 @@
+<ul id="header">
+
+  <a href="/" class="ml-5">
+    <li>Home</li>
+  </a>
+  <a href="/game">
+    <li>Game</li>
+  </a>
+  {{#if isUserLogged}}
+  <a href="/logout">
+    <li class="float-rigt mr-5">Logout</li>
+  </a>
+
+  {{else}}
+  <a href="/signin">
+    <li class="float-rigt mr-5">Sign-in</li>
+  </a>
+  <a href="/signup">
+    <li class="float-rigt">Sign-up</li>
+  </a>
+  {{/if}}
+</ul>
