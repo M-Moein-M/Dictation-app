@@ -136,7 +136,8 @@ p > a {
   float: right;
 }
 
-#username {
+/* showing username on header */
+#header-username {
   font-weight: bold;
   background-color: #19c298;
 }
