@@ -4,7 +4,7 @@
 }
 
 body {
-  background-color: #b2dfdb;
+  background-color: #80cbc4;
 }
 
 .hide {
@@ -134,4 +134,9 @@ p > a {
 }
 .float-rigt {
   float: right;
+}
+
+#username {
+  font-weight: bold;
+  background-color: #19c298;
 }

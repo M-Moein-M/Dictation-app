@@ -22,6 +22,7 @@ router.get('/', isAuthenticated, async (req, res) => {
         audioSrc: audioURL,
         currentLevel: req.user.userLevel,
         isUserLogged: req.isAuthenticated(),
+        username: req.isAuthenticated() ? req.user.username : null,
       });
     } catch (error) {
       console.log('Error on catch phrase get /game route');
@@ -77,7 +78,7 @@ router.post('/', isAuthenticated, (req, res) => {
 function isAuthenticated(req, res, next) {
   if (req.isAuthenticated()) next();
   else {
-    req.flash('appMsg', 'Oops! You need to log-in to play the game');
+    req.flash('appMsgError', 'Oops! You need to log-in to play the game');
     res.redirect('/signin');
   }
 }

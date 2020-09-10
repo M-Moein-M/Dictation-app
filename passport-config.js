@@ -9,7 +9,7 @@ module.exports = function initialize(passport, usersDatabase) {
         if (err) return done(err);
 
         if (!user)
-          return done(null, false, { message: 'This email in not registered' });
+          return done(null, false, { message: 'This email is not registered' });
 
         if (bcrypt.compareSync(password, user.password))
           return done(null, user);

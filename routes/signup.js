@@ -6,7 +6,10 @@ const flash = require('express-flash');
 const { usersDatabase, wordsDatabase } = require('../app.js');
 
 router.get('/', isNotAuthenticated, (req, res) => {
-  res.render('signup', { isUserLogged: req.isAuthenticated() });
+  res.render('signup', {
+    isUserLogged: req.isAuthenticated(),
+    username: req.isAuthenticated() ? req.user.username : null,
+  });
 });
 
 router.post('/', isNotAuthenticated, (req, res) => {
@@ -18,38 +21,45 @@ router.post('/', isNotAuthenticated, (req, res) => {
     renderObj.username = req.body.username;
   }
 
-  usersDatabase.findOne({ email: req.body.email }, (err, docs) => {
-    if (err) {
-      console.log('Error in signup post request');
-      console.log(err);
-      res.redirect('signup');
-    }
-    if (docs != null) {
-      // incase there's a user with same email
-      renderObj.signupErrors.push('This email is already taken!');
-      renderObj.email = null;
-      renderObj.username = req.body.username;
-      renderObj.isUserLogged = req.isAuthenticated();
-    }
-    if (renderObj.signupErrors.length != 0) {
-      res.render('signup', renderObj);
-    } else {
-      // insert new user to database
-      const { email, username, password } = req.body;
+  usersDatabase.findOne(
+    { email: req.body.email },
+    (err, userFoundWithEmail) => {
+      if (err) {
+        console.log('Error in signup post request');
+        console.log(err);
+        res.redirect('signup');
+      }
 
-      // initialize new user
-      const user = {
-        email,
-        username,
-        password: bcrypt.hashSync(password, 10),
-        userLevel: 1,
-      };
-      usersDatabase.insert(user);
+      if (userFoundWithEmail != null) {
+        // there's a user with same email
+        renderObj.signupErrors.push('This email already exists!');
+        renderObj.email = null;
+        renderObj.username = req.body.username;
+        renderObj.isUserLogged = req.isAuthenticated();
+        renderObj.username = req.isAuthenticated() ? req.user.username : null;
+      }
+      if (renderObj.signupErrors.length != 0) {
+        res.render('signup', renderObj);
+      } else {
+        // inserting new user to database
+        const { email, username, password } = req.body;
+        // initialize new user
+        const user = {
+          email,
+          username,
+          password: bcrypt.hashSync(password, 10),
+          userLevel: 1,
+        };
+        usersDatabase.insert(user);
 
-      req.flash('appMsg', 'You may now sign-in with your account');
-      res.render('signin', { isUserLogged: req.isAuthenticated() });
+        req.flash('appMsg', 'You may now sign-in with your account');
+        res.render('signin', {
+          isUserLogged: req.isAuthenticated(),
+          username: req.isAuthenticated() ? req.user.username : null,
+        });
+      }
     }
-  });
+  );
 });
 
 // make sure user is not authenticated already
