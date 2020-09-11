@@ -1,0 +1,15 @@
+<div class="container mt-5">
+  {{#each rankings}}
+  <div class="row justify-content-center">
+    <div class="col-sm-10 col-md-6 ranking mt-3">
+      <div class="float-left">
+        {{this.rank}}. {{this.name}}
+      </div>
+      <div class="float-right score">
+        {{this.score}}
+      </div>
+    </div>
+  </div>
+  {{/each}}
+
+</div>

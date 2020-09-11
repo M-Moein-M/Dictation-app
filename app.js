@@ -65,6 +65,7 @@ app.use('/', require(path.join(__dirname, 'routes', 'index.js')));
 app.use('/game', require(path.join(__dirname, 'routes', 'game')));
 app.use('/signup', require(path.join(__dirname, 'routes', 'signup')));
 app.use('/signin', require(path.join(__dirname, 'routes', 'signin')));
+app.use('/ranking', require(path.join(__dirname, 'routes', 'ranking')));
 
 app.get('/logout', (req, res) => {
   req.logout();

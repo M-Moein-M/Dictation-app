@@ -141,3 +141,21 @@ p > a {
   font-weight: bold;
   background-color: #19c298;
 }
+
+/* ranking */
+.ranking {
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #1de9b6;
+
+  font-size: 1.3rem;
+
+  transition-duration: 0.2s;
+}
+.ranking:hover {
+  padding: 20px;
+}
+
+.ranking .score {
+  font-weight: bold;
+}
