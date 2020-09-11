@@ -5,6 +5,7 @@ const flash = require('express-flash');
 require('dotenv').config();
 
 const { usersDatabase, wordsDatabase } = require('../app.js');
+const { updateRanking } = require('./ranking');
 
 router.get('/', isAuthenticated, async (req, res) => {
   wordsDatabase.findOne({ wordTag: req.user.userLevel }, async (err, doc) => {
@@ -51,7 +52,7 @@ router.post('/', isAuthenticated, (req, res) => {
               if (err) {
                 console.log('Error in /game post');
                 console.log(err);
-              }
+              } else updateRanking(user.username, user.userLevel + 1);
             }
           );
         } else {
@@ -63,7 +64,7 @@ router.post('/', isAuthenticated, (req, res) => {
               if (err) {
                 console.log('Error in /game post');
                 console.log(err);
-              }
+              } else updateRanking(user.username, user.userLevel);
             }
           );
         }

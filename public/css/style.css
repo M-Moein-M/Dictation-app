@@ -146,7 +146,7 @@ p > a {
 .ranking {
   padding: 15px;
   border-radius: 10px;
-  background-color: #1de9b6;
+  background-color: #b2dfdb;
 
   font-size: 1.3rem;
 
@@ -156,6 +156,11 @@ p > a {
   padding: 20px;
 }
 
-.ranking .score {
+.ranking .ranking-score {
+  font-weight: bold;
+}
+
+.ranking .ranking-username {
+  font-size: 1.5rem;
   font-weight: bold;
 }
